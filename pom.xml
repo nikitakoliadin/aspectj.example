@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.qthegamep</groupId>
+    <artifactId>aspectj.example</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>aspectj.example</name>
+
+    <developers>
+        <developer>
+            <id>qThegamEp</id>
+            <name>Nikita Koliadin</name>
+            <email>qThegamEp@gmail.com</email>
+            <url>https://github.com/qThegamEp/</url>
+            <timezone>Ukraine/Dnipro</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <!-- Java -->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mainClass>com.qthegamep.aspectj.example.Application</mainClass>
+
+        <!-- Compiler plugin -->
+        <compiler-plugin.version>3.6.1</compiler-plugin.version>
+
+        <!-- JAR plugin -->
+        <jar-plugin.version>3.1.0</jar-plugin.version>
+        <jar-plugin.addClasspath>true</jar-plugin.addClasspath>
+        <jar-plugin.classpathPrefix>lib/</jar-plugin.classpathPrefix>
+
+        <!-- Dependency Plugin -->
+        <dependency-plugin.version>2.6</dependency-plugin.version>
+        <dependency-plugin.overWriteReleases>false</dependency-plugin.overWriteReleases>
+        <dependency-plugin.overWriteSnapshots>false</dependency-plugin.overWriteSnapshots>
+        <dependency-plugin.overWriteIfNewer>true</dependency-plugin.overWriteIfNewer>
+
+        <!-- Log -->
+        <log.logback.version>1.2.3</log.logback.version>
+
+        <!-- AOP -->
+        <aop.aspectjrt.version>1.9.4</aop.aspectjrt.version>
+        <aop.aspectjweaver.version>1.9.4</aop.aspectjweaver.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- JAR plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>${jar-plugin.addClasspath}</addClasspath>
+                            <classpathPrefix>${jar-plugin.classpathPrefix}</classpathPrefix>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- Dependency plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${dependency-plugin.version}</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib/</outputDirectory>
+                    <overWriteReleases>${dependency-plugin.overWriteReleases}</overWriteReleases>
+                    <overWriteSnapshots>${dependency-plugin.overWriteSnapshots}</overWriteSnapshots>
+                    <overWriteIfNewer>${dependency-plugin.overWriteIfNewer}</overWriteIfNewer>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Log -->
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${log.logback.version}</version>
+        </dependency>
+
+        <!-- AOP -->
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aop.aspectjrt.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aop.aspectjweaver.version}</version>
+        </dependency>
+    </dependencies>
+</project>
