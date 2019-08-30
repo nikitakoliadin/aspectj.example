@@ -36,18 +36,28 @@
         <jar-plugin.addClasspath>true</jar-plugin.addClasspath>
         <jar-plugin.classpathPrefix>lib/</jar-plugin.classpathPrefix>
 
-        <!-- Dependency Plugin -->
+        <!-- Dependency plugin -->
         <dependency-plugin.version>2.6</dependency-plugin.version>
         <dependency-plugin.overWriteReleases>false</dependency-plugin.overWriteReleases>
         <dependency-plugin.overWriteSnapshots>false</dependency-plugin.overWriteSnapshots>
         <dependency-plugin.overWriteIfNewer>true</dependency-plugin.overWriteIfNewer>
 
+        <!-- AspectJ plugin -->
+        <aspectj-plugin.version>1.11</aspectj-plugin.version>
+        <aspectj-plugin.complianceLevel>1.8</aspectj-plugin.complianceLevel>
+        <aspectj-plugin.source>1.8</aspectj-plugin.source>
+        <aspectj-plugin.target>1.8</aspectj-plugin.target>
+        <aspectj-plugin.showWeaveInfo>true</aspectj-plugin.showWeaveInfo>
+        <aspectj-plugin.verbose>true</aspectj-plugin.verbose>
+        <aspectj-plugin.xlint>ignore</aspectj-plugin.xlint>
+        <aspectj-plugin.encoding>UTF-8</aspectj-plugin.encoding>
+
         <!-- Log -->
         <log.logback.version>1.2.3</log.logback.version>
 
         <!-- AOP -->
-        <aop.aspectjrt.version>1.9.4</aop.aspectjrt.version>
-        <aop.aspectjweaver.version>1.9.4</aop.aspectjweaver.version>
+        <aop.aspectjrt.version>1.8.13</aop.aspectjrt.version>
+        <aop.aspectjweaver.version>1.8.13</aop.aspectjweaver.version>
     </properties>
 
     <build>
@@ -96,6 +106,30 @@
                         <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- AspectJ plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${aspectj-plugin.version}</version>
+                <configuration>
+                    <complianceLevel>${aspectj-plugin.complianceLevel}</complianceLevel>
+                    <source>${aspectj-plugin.source}</source>
+                    <target>${aspectj-plugin.target}</target>
+                    <showWeaveInfo>${aspectj-plugin.showWeaveInfo}</showWeaveInfo>
+                    <verbose>${aspectj-plugin.verbose}</verbose>
+                    <Xlint>${aspectj-plugin.xlint}</Xlint>
+                    <encoding>${aspectj-plugin.encoding}</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
                         </goals>
                     </execution>
                 </executions>
